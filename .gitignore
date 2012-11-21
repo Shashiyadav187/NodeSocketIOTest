@@ -6,6 +6,8 @@ CVS
 
 .svn
 
+node_modules
+
 bin
 .bin
 Bin
