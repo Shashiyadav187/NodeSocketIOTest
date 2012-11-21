@@ -1,0 +1,31 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #{title}
+  hr
+  p Current server time: <span id="serverTime"></span>
+  p Process uptime (sec): <span id="uptime"></span> 
+  p Memory resident set size: <span id="rss"></span>
+  p V8 engine heap total: <span id="heapTotal"></span>
+  p V8 engine heap used: <span id="heapUsed"></span>
+  p Architecture: <span id="arch"></span>
+  p Platform: <span id="platform"></span>
+  p Version: <span id="version"></span>
+
+block scripts
+  script(src="/socket.io/socket.io.js")
+  
+  script
+
+    var socket = io.connect();
+    socket.on('serverStatus', function (ss) {
+        $('#serverTime').html(ss.timeUTC);
+        $('#uptime').html(ss.uptime)
+        $('#rss').html(ss.rss);
+        $('#heapTotal').html(ss.heapTotal);
+        $('#heapUsed').html(ss.heapUsed);
+        $('#arch').html(ss.arch);
+        $('#platform').html(ss.platform);
+        $('#version').html(ss.version);
+    });
