@@ -41,10 +41,10 @@ server.listen(app.get('port'), function(){
 // Real-time updates
 
 var serverStatus = function () {
-  var d = new Date();
+  var now = new Date();
   var m = process.memoryUsage();
   return {
-    timeUTC: d.toISOString(),
+    timeUTC: now.toISOString(),
     rss: m.rss,
     heapTotal: m.heapTotal,
     heapUsed: m.heapUsed,
@@ -53,19 +53,21 @@ var serverStatus = function () {
     platform: process.platform,
     version: process.version
   };
-}
+};
+
+var emitServerStatus = function (socket) {
+  var ss = serverStatus();
+  socket.emit('serverStatus', ss);
+};
 
 io.sockets.on('connection', function (socket) {
-  console.log('Socket connection: ' + socket);
-
-  socket.emit('serverStatus', serverStatus());
-
+  // Send server status immediately, and every second thereafter
+  emitServerStatus(socket);
   var interval = setInterval(function () {
-    socket.emit('serverStatus', serverStatus());
+    emitServerStatus(socket);
   }, 1000);
 
   socket.on('disconnect', function () {
-    console.log('Disconnection');
     clearInterval(interval);
   });
 });
