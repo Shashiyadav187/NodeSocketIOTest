@@ -3,23 +3,27 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
+
   hr
-  p Current server time: 
-    span#serverTime
-  p Process uptime (sec): 
-    span#uptime
-  p Memory resident set size: 
-    span#rss
-  p V8 engine heap total: 
-    span#heapTotal
-  p V8 engine heap used: 
-    span#heapUsed
-  p Architecture: 
-    span#arch
-  p Platform: 
-    span#platform
-  p Node Version: 
-    span#version
+
+  #serverStatus
+
+      p Current server time: 
+        span#serverTime
+      p Process uptime (sec): 
+        span#uptime
+      p Memory resident set size: 
+        span#rss
+      p V8 engine heap total: 
+        span#heapTotal
+      p V8 engine heap used: 
+        span#heapUsed
+      p Architecture: 
+        span#arch
+      p Platform: 
+        span#platform
+      p Node Version: 
+        span#version
 
 block scripts
   script(src="/socket.io/socket.io.js")
@@ -28,12 +32,12 @@ block scripts
 
     var socket = io.connect();
     socket.on('serverStatus', function (ss) {
-        $('#serverTime').html(ss.timeUTC);
-        $('#uptime').html(ss.uptime)
-        $('#rss').html(ss.rss);
-        $('#heapTotal').html(ss.heapTotal);
-        $('#heapUsed').html(ss.heapUsed);
-        $('#arch').html(ss.arch);
-        $('#platform').html(ss.platform);
-        $('#version').html(ss.version);
+        $('#serverTime').text(ss.timeUTC);
+        $('#uptime').text(ss.uptime)
+        $('#rss').text(ss.rss);
+        $('#heapTotal').text(ss.heapTotal);
+        $('#heapUsed').text(ss.heapUsed);
+        $('#arch').text(ss.arch);
+        $('#platform').text(ss.platform);
+        $('#version').text(ss.version);
     });
