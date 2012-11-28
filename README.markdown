@@ -1,6 +1,6 @@
 ## NodeSocketIOTest
 
-This is a simple web page I whipped up using [node.js](http://nodejs.org/), the [socket.io](http://socket.io/) library, and [Skeleton](http://getskeleton.com) boilerplate. The server pushes its current process information to the web browser once per second, and the browser displays it.
+This is a simple web page I whipped up using [node.js](http://nodejs.org/), the [socket.io](http://socket.io/) library, the [Express](http://expressjs.com) framework, and [Skeleton](http://getskeleton.com) boilerplate. The server pushes its current process information to the web browser once per second, and the browser displays it.
 
 Here is how to set it up on a server and run it.  It is assumed that git, Node, and npm are already set up, and that the firewall will allow connections to port 3000.
 
