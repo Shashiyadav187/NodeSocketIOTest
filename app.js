@@ -27,6 +27,7 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
+app.get('/skeleton_test', routes.skeleton_test);
 app.get('/', routes.index);
 app.get('/users', user.list);
 

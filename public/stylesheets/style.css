@@ -1,8 +1,9 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-}
+/*
+ * Site styles
+ * 
+ * This CSS is loaded after base.css, skeleton.css, and layout.css
+ */
 
-a {
-  color: #00B7FF;
+.dataValue {
+    font-weight: bold;
 }

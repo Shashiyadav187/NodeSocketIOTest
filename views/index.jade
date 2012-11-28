@@ -8,22 +8,30 @@ block content
 
   #serverStatus
 
-      p Current server time: 
-        span#serverTime
-      p Process uptime (sec): 
-        span#uptime
-      p Memory resident set size: 
-        span#rss
-      p V8 engine heap total: 
-        span#heapTotal
-      p V8 engine heap used: 
-        span#heapUsed
-      p Architecture: 
-        span#arch
-      p Platform: 
-        span#platform
-      p Node Version: 
-        span#version
+      .six.columns
+        h3 Running Time
+        p Server time: 
+          span#serverTime.dataValue
+        p Process uptime (sec): 
+          span#uptime.dataValue
+
+      .six.columns
+        h3 Memory Usage
+        p Memory resident set size: 
+          span#rss.dataValue
+        p V8 engine heap total: 
+          span#heapTotal.dataValue
+        p V8 engine heap used: 
+          span#heapUsed.dataValue
+
+      .four.columns
+        h3 Environment
+        p Architecture: 
+          span#arch.dataValue
+        p Platform: 
+          span#platform.dataValue
+        p Node Version: 
+          span#version.dataValue
 
 block scripts
   script(src="/socket.io/socket.io.js")
