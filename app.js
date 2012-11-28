@@ -49,7 +49,7 @@ var serverStatus = function () {
     rss: m.rss,
     heapTotal: m.heapTotal,
     heapUsed: m.heapUsed,
-    uptime: process.uptime(),
+    uptime: Math.round(process.uptime()),
     arch: process.arch,
     platform: process.platform,
     version: process.version
