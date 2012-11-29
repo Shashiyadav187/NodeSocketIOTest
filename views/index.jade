@@ -9,11 +9,13 @@ block content
   #serverStatus
 
       .six.columns
-        h3 Running Time
-        p Server time: 
+        h3 Server
+        p Time: 
           span#serverTime.dataValue
         p Process uptime (sec): 
           span#uptime.dataValue
+        p Client count: 
+          span#clientCount.dataValue
 
       .six.columns
         h3 Memory Usage
@@ -31,7 +33,7 @@ block content
         p Platform: 
           span#platform.dataValue
         p Node Version: 
-          span#version.dataValue
+          span#nodeVersion.dataValue
 
 block scripts
   script(src="/socket.io/socket.io.js")
@@ -41,11 +43,12 @@ block scripts
     var socket = io.connect();
     socket.on('serverStatus', function (ss) {
         $('#serverTime').text(ss.timeUTC);
-        $('#uptime').text(ss.uptime)
+        $('#uptime').text(ss.uptime);
+        $('#clientCount').text(ss.clientCount);
         $('#rss').text(ss.rss);
         $('#heapTotal').text(ss.heapTotal);
         $('#heapUsed').text(ss.heapUsed);
         $('#arch').text(ss.arch);
         $('#platform').text(ss.platform);
-        $('#version').text(ss.version);
+        $('#nodeVersion').text(ss.nodeVersion);
     });
