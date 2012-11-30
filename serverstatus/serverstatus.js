@@ -29,7 +29,7 @@ function listen(server) {
   });
 }
 
-var intervalTimer = undefined,
+var intervalTimer = null,
     sockets = [];
     
 function log(message) {
@@ -82,6 +82,7 @@ function onDisconnect(socket) {
   if (intervalTimer && sockets.length == 0) {
     log("Stopping interval timer");
     clearInterval(intervalTimer);
+    intervalTimer = null;
   }
 }
 
