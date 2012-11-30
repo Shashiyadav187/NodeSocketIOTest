@@ -40,64 +40,46 @@ block scripts
   script
 
     $(document).ready(function() {
-      var showDebugMessages = false;
-      function debugLog(message) {
-        if (showDebugMessages && console && console.log) {
-          console.log(message);
-        }
-      }
-
-      var ServerStatusModel = Backbone.Model.extend();
-      var serverStatusModel = new ServerStatusModel();
+      var serverStatusModel = new Backbone.Model();
 
       serverStatusModel.on("change:timeUTC", function(model, newValue) {
-        debugLog("Update timeUTC");                   
         $('#timeUTC').text(_.escape(newValue));
       });
 
       serverStatusModel.on("change:rss", function (model, newValue) {
-        debugLog("Update rss");
         $('#rss').text(_.escape(newValue));
       });
 
       serverStatusModel.on("change:heapTotal", function (model, newValue) {
-        debugLog("Update heapTotal");
         $('#heapTotal').text(_.escape(newValue));
       });
       
       serverStatusModel.on("change:heapUsed", function (model, newValue) {
-        debugLog("Update heapUsed");
         $('#heapUsed').text(_.escape(newValue));
       });
       
       serverStatusModel.on("change:uptime", function (model, newValue) {
-        debugLog("Update uptime");
         $('#uptime').text(_.escape(newValue));
       });
       
       serverStatusModel.on("change:arch", function (model, newValue) {
-        debugLog("Update arch");
         $('#arch').text(_.escape(newValue));
       });
       
       serverStatusModel.on("change:platform", function (model, newValue) {
-        debugLog("Update platform");
         $('#platform').text(_.escape(newValue));
       });
       
       serverStatusModel.on("change:nodeVersion", function (model, newValue) {
-        debugLog("Update nodeVersion");
         $('#nodeVersion').text(_.escape(newValue));
       });
       
       serverStatusModel.on("change:clientCount", function (model, newValue) {
-        debugLog("Update clientCount");
         $('#clientCount').text(_.escape(newValue));
       });
       
       var socket = io.connect();
       socket.on('serverStatus', function (ss) {
-        debugLog("serverStatus update received");
         serverStatusModel.set(ss);
       });
     });
