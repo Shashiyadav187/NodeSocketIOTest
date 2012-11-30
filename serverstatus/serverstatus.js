@@ -11,13 +11,12 @@
 //  uptime:      number of seconds process has been running
 //  arch:        CPU architecture
 //  platform:    OS platform
-//  nodeVersion: Node version
+//  nodeVersion: node.js version
 //  clientCount: number of connected Socket.IO clients
 
-exports.listen = listen
+var _ = require("underscore");
 
-// Accept connections
-function listen(server) {
+exports.listen = function (server) {
   var io = require('socket.io').listen(server);
 
   io.sockets.on('connection', function (socket) {
@@ -30,16 +29,21 @@ function listen(server) {
 }
 
 var intervalTimer = null,
-    sockets = [];
+    clientSockets = [];
     
 function log(message) {
   console.log("serverStatus: " + message);
 }
 
+function clientSocketCount() {
+  return clientSockets.length;
+}
+
 // Generate data object to be sent to client
 function serverStatusData() {
-  var now = new Date();
-  var m = process.memoryUsage();
+  var now = new Date(),
+      m = process.memoryUsage(),
+      clientCount = clientSocketCount();
 
   return {
     timeUTC:     now.toISOString(),
@@ -50,21 +54,22 @@ function serverStatusData() {
     arch:        process.arch,
     platform:    process.platform,
     nodeVersion: process.version,
-    clientCount: sockets.length
+    clientCount: clientCount
   };
-};
+}
 
 // Emit server status to clients
 function emitServerStatus() {
   var data = serverStatusData();
-  sockets.forEach(function(socket) {
+
+  clientSockets.forEach(function (socket) {
     socket.emit('serverStatus', data);
   });
-};
+}
 
 function onConnection(socket) {
   log("Adding socket");
-  sockets.push(socket);
+  clientSockets.push(socket);
 
   if (!intervalTimer) {
     log("Starting interval timer");
@@ -74,12 +79,9 @@ function onConnection(socket) {
 
 function onDisconnect(socket) {
   log("Removing socket");
-  var index = sockets.indexOf(socket);
-  if (index >= 0) {
-    sockets.splice(index, 1);
-  }
+  clientSockets = _(clientSockets).without(socket);
 
-  if (intervalTimer && sockets.length == 0) {
+  if (intervalTimer && clientSocketCount() == 0) {
     log("Stopping interval timer");
     clearInterval(intervalTimer);
     intervalTimer = null;
