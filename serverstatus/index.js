@@ -55,7 +55,7 @@ function serverStatusData() {
 };
 
 // Emit server status to clients
-function emitServerStatus(socket) {
+function emitServerStatus() {
   var data = serverStatusData();
   sockets.forEach(function(socket) {
     socket.emit('serverStatus', data);
