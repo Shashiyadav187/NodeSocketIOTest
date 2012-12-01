@@ -6,29 +6,44 @@ block content
 
   hr
 
-  .one-third.column
+  .one-third.column.alpha
 
     h3 Server
     
-    p Time:                 <span id='timeUTC'     class='dataValue'></span>
-    p Process uptime (sec): <span id='uptime'      class='dataValue'></span>
-    p Client count:         <span id='clientCount' class='dataValue'></span>
+    p Time: 
+      span#timeUTC.dataValue &nbsp;
+
+    p Process uptime (sec): 
+      span#uptime.dataValue &nbsp;
+
+    p Client count: 
+      span#clientCount.dataValue &nbsp;
 
   .one-third.column
     
     h3 Memory Usage
     
-    p Resident set size:    <span id='rss'         class='dataValue'></span>
-    p V8 engine heap total: <span id='heapTotal'   class='dataValue'></span>
-    p V8 engine heap used:  <span id='heapUsed'    class='dataValue'></span>
+    p Resident set size: 
+      span#rss.dataValue &nbsp;
 
-  .one-third.column
+    p V8 engine heap total: 
+      span#heapTotal.dataValue &nbsp;
+
+    p V8 engine heap used: 
+      span#heapUsed.dataValue &nbsp;
+
+  .one-third.column.omega
     
     h3 Environment
     
-    p Architecture:         <span id='arch'        class='dataValue'></span>
-    p Platform:             <span id='platform'    class='dataValue'></span>
-    p Node Version:         <span id='nodeVersion' class='dataValue'></span>
+    p Architecture: 
+      span#arch.dataValue &nbsp;
+
+    p Platform: 
+      span#platform.dataValue &nbsp;
+
+    p Node Version: 
+      span#nodeVersion.dataValue &nbsp;
 
 block headscripts
   script(src='javascripts/jquery-1.8.3.min.js')
