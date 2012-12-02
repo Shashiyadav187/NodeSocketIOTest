@@ -8,43 +8,47 @@
 // - jquery.js
 
 $(document).ready(function() {
-  var serverStatusModel = new Backbone.Model();
+  var ServerStatusModel = Backbone.Model.extend({
+    initialize: function() {
+      this.on("change:timeUTC", function(model, newValue) {
+        $('#timeUTC').text(newValue);
+      });
 
-  serverStatusModel.on("change:timeUTC", function(model, newValue) {
-    $('#timeUTC').text(newValue);
+      this.on("change:rss", function (model, newValue) {
+        $('#rss').text(newValue);
+      });
+
+      this.on("change:heapTotal", function (model, newValue) {
+        $('#heapTotal').text(newValue);
+      });
+      
+      this.on("change:heapUsed", function (model, newValue) {
+        $('#heapUsed').text(newValue);
+      });
+      
+      this.on("change:uptime", function (model, newValue) {
+        $('#uptime').text(newValue);
+      });
+      
+      this.on("change:arch", function (model, newValue) {
+        $('#arch').text(newValue);
+      });
+      
+      this.on("change:platform", function (model, newValue) {
+        $('#platform').text(newValue);
+      });
+      
+      this.on("change:nodeVersion", function (model, newValue) {
+        $('#nodeVersion').text(newValue);
+      });
+      
+      this.on("change:clientCount", function (model, newValue) {
+        $('#clientCount').text(newValue);
+      });
+    }
   });
 
-  serverStatusModel.on("change:rss", function (model, newValue) {
-    $('#rss').text(newValue);
-  });
-
-  serverStatusModel.on("change:heapTotal", function (model, newValue) {
-    $('#heapTotal').text(newValue);
-  });
-  
-  serverStatusModel.on("change:heapUsed", function (model, newValue) {
-    $('#heapUsed').text(newValue);
-  });
-  
-  serverStatusModel.on("change:uptime", function (model, newValue) {
-    $('#uptime').text(newValue);
-  });
-  
-  serverStatusModel.on("change:arch", function (model, newValue) {
-    $('#arch').text(newValue);
-  });
-  
-  serverStatusModel.on("change:platform", function (model, newValue) {
-    $('#platform').text(newValue);
-  });
-  
-  serverStatusModel.on("change:nodeVersion", function (model, newValue) {
-    $('#nodeVersion').text(newValue);
-  });
-  
-  serverStatusModel.on("change:clientCount", function (model, newValue) {
-    $('#clientCount').text(newValue);
-  });
+  var serverStatusModel = new ServerStatusModel();
   
   var socket = io.connect();
   socket.on('serverStatus', function (ss) {
